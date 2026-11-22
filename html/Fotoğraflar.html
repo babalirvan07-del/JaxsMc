@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fotoğraflar</title>
+  <link rel="stylesheet" href="../css/fotograflar.css">
+</head>
+<body>
+  <main class="gallery">
+    <header class="gallery-heading">
+      <span class="eyebrow">JAXSMC PARTNER</span>
+      <h1>Fotoğraflar</h1>
+      <p>AesirMc maceralarından kareler.</p>
+    </header>
+    <div class="photo-grid" id="photoGrid"></div>
+    <p class="empty" id="empty">Fotoğraflar yükleniyor...</p>
+  </main>
+
+  <div class="viewer" id="viewer" aria-hidden="true">
+    <button class="viewer-close" id="closeViewer" type="button" aria-label="Kapat">×</button>
+    <img id="viewerImage" alt="Büyük fotoğraf">
+  </div>
+
+  <script>
+  async function loadPhotos() {
+    const grid = document.getElementById("photoGrid");
+    const empty = document.getElementById("empty");
+    try {
+      const response = await fetch("../img/anilar/photos.json");
+      if (!response.ok) throw new Error("Fotoğraf listesi bulunamadı");
+      const data = await response.json();
+      if (!Array.isArray(data)) throw new Error("Fotoğraf listesi geçersiz");
+
+      const photos = [];
+      for (const item of data) {
+        if (typeof item === "string") photos.push(item);
+      }
+
+      grid.replaceChildren();
+      if (photos.length === 0) {
+        empty.textContent = "Henüz fotoğraf eklenmemiş.";
+        return;
+      }
+
+      for (const photo of photos) {
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "photo-card";
+        const img = document.createElement("img");
+        img.src = "../img/anilar/" + encodeURIComponent(photo);
+        img.alt = photo;
+        img.loading = "lazy";
+        card.appendChild(img);
+        card.addEventListener("click", function () {
+          document.getElementById("viewerImage").src = img.src;
+          const viewer = document.getElementById("viewer");
+          viewer.classList.add("active");
+          viewer.setAttribute("aria-hidden", "false");
+        });
+        grid.appendChild(card);
+      }
+      empty.hidden = true;
+    } catch (error) {
+      empty.textContent = "Fotoğraflar yüklenemedi. Lütfen photos.json dosyasını kontrol et.";
+      console.error(error);
+    }
+  }
+
+  function closeViewer() {
+    const viewer = document.getElementById("viewer");
+    viewer.classList.remove("active");
+    viewer.setAttribute("aria-hidden", "true");
+    document.getElementById("viewerImage").src = "";
+  }
+  document.getElementById("closeViewer").addEventListener("click", closeViewer);
+  document.getElementById("viewer").addEventListener("click", function (event) {
+    if (event.target === this) closeViewer();
+  });
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") closeViewer();
+  });
+  loadPhotos();
+  </script>
+</body>
+</html>
