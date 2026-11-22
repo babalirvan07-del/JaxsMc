@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17100b">
+  <title>JaxsMc Partner</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="JaxsMc Partner ana sayfa">
+      <img class="brand-art" src="img/server.gif" alt="JaxsMc Partner animasyonlu GIF">
+    </a>
+    <nav class="tabs" id="pageTabs" aria-label="Sayfa sekmeleri">
+      <button class="tab active" data-page="home" type="button">Ana Sayfa</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page active" id="home">
+      <div class="hero">
+        <div class="hero-glow"></div>
+        <img class="home-title-art" src="img/jaxsmc-title.png" alt="JaxsMc">
+        <img class="home-server-gif" src="img/server.gif" alt="JaxsMc Partner animasyonlu GIF">
+        <p>Sunucunun dünyasına hoş geldin.</p>
+      </div>
+
+      <section class="server-join" aria-label="Sunucuya katıl">
+        <div class="join-copy">
+          <div class="server-profile">
+            <img src="img/aesirmc.png" alt="AesirMc sunucu profili">
+            <div>
+              <span class="eyebrow">MINECRAFT SUNUCUSU</span>
+              <h2>AesirMc'ye Katıl</h2>
+              <p>play.aesirmc.com sunucusuna katıl, maceraya başla.</p>
+            </div>
+          </div>
+        </div>
+        <div class="server-address">
+          <code id="serverAddress">play.aesirmc.com</code>
+          <button class="primary-btn" id="copyServerIp" type="button">IP Adresini Kopyala</button>
+          <span class="copy-status" id="copyStatus" aria-live="polite"></span>
+        </div>
+      </section>
+    </section>
+
+    <section class="page html-page" id="htmlPage" aria-label="Seçilen HTML sayfası">
+      <iframe id="htmlFrame" title="Site sayfası" loading="lazy"></iframe>
+    </section>
+  </main>
+
+  <footer><span>✦ JaxsMc Partner</span><span>AesirMc • play.aesirmc.com</span></footer>
+  <script src="js/app.js"></script>
+</body>
+</html>
